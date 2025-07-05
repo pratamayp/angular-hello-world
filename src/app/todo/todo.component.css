@@ -1,0 +1,22 @@
+.container {
+  padding-left: 15vw;
+  padding-right: 15vw;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.container > * + * {
+  margin-top: 1rem;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.table-title {
+  font-weight: 500;
+  font-size: 1.125rem;
+}

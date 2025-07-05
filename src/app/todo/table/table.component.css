@@ -1,0 +1,8 @@
+.table-nodata {
+  display: flex;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}

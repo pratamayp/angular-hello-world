@@ -1,1 +1,16 @@
-<p>todo works!</p>
+<section class="container">
+  <a
+    mat-icon-button
+    aria-label="Example icon button with a delete icon"
+    routerLink="/"
+  >
+    <mat-icon>chevron_left</mat-icon>
+  </a>
+  <div>
+    <div class="table-header">
+      <h2 class="table-title">Todo Table</h2>
+      <button mat-flat-button (click)="openDialog()">New Data</button>
+    </div>
+    <todo-table />
+  </div>
+</section>
