@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { TableComponent } from './table/table.component';
+import { TableComponent, Todo } from './table/table.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -15,7 +15,9 @@ import { TodoDialogComponent } from './dialog/dialog.component';
 export class TodoComponent {
   readonly dialog = inject(MatDialog);
 
-  openDialog() {
-    this.dialog.open(TodoDialogComponent);
+  openDialog(todo?: Todo) {
+    this.dialog.open(TodoDialogComponent, {
+      data: todo,
+    });
   }
 }

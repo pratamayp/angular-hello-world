@@ -18,8 +18,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { SharedService } from '../../services/shared.service';
-import { Todo } from '../table/table.component';
 import { DatePipe } from '@angular/common';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'todo-dialog',
@@ -40,28 +40,48 @@ import { DatePipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoDialogComponent {
+  readonly data = inject(MAT_DIALOG_DATA);
+
   constructor(
     private shared: SharedService,
     private datePipe: DatePipe,
     private dialogRef: MatDialogRef<TodoDialogComponent>
-  ) {}
+  ) {
+    if (this.data) {
+      this.todoForm.patchValue({
+        id: Number(this.data.id),
+        title: this.data.title,
+        deadline: this.data.deadline,
+      });
+    }
+  }
 
   formatDate(date: Date): string {
     return this.datePipe.transform(date, 'dd/MM/yyyy') ?? '';
   }
 
   todoForm = new FormGroup({
+    id: new FormControl(),
     title: new FormControl('', Validators.required),
     deadline: new FormControl('', Validators.required),
   });
 
   handleSubmit() {
     if (this.todoForm.valid) {
-      this.shared.addTodo({
-        id: Number(new Date().getTime()),
-        deadline: new Date(this.todoForm.value.deadline!),
-        title: String(this.todoForm.value.title),
-      });
+      const { id, title, deadline } = this.todoForm.value;
+      if (!id) {
+        this.shared.addTodo({
+          id: Number(new Date().getTime()),
+          deadline: new Date(deadline!),
+          title: String(title),
+        });
+      } else {
+        this.shared.updateTodo({
+          id,
+          deadline: new Date(deadline!),
+          title: String(title),
+        });
+      }
       this.dialogRef.close();
     } else {
       this.todoForm.markAllAsTouched();

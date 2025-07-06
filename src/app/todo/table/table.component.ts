@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { SharedService } from '../../services/shared.service';
@@ -13,7 +13,7 @@ export interface PeriodicElement {
 }
 
 export type Todo = {
-  id?: number;
+  id: number;
   title: string;
   deadline: Date;
 };
@@ -26,6 +26,7 @@ export type Todo = {
 })
 export class TableComponent implements OnInit {
   constructor(private shared: SharedService) {}
+  @Output() edit = new EventEmitter<Todo>();
 
   displayedColumns: string[] = ['id', 'title', 'deadline', 'action'];
   dataSource: Todo[] = [];
@@ -40,7 +41,10 @@ export class TableComponent implements OnInit {
     this.getTodo();
   }
 
-  deleteTodo(id: number) {
+  handleEdit(todo: Todo) {
+    this.edit.emit(todo);
+  }
+  handleDelete(id: number) {
     this.shared.deleteTodo(id);
   }
 }

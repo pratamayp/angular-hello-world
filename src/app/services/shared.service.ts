@@ -30,6 +30,16 @@ export class SharedService {
     this._todoData.next([...current, todo]);
   }
 
+  updateTodo(todo: Todo): void {
+    const currentTodos = this._todoData.getValue();
+
+    const updatedTodos = currentTodos.map((t) =>
+      t.id === todo.id ? { ...t, ...todo } : t
+    );
+
+    this._todoData.next(updatedTodos);
+  }
+
   deleteTodo(id: number): void {
     const filtered = this._todoData.value.filter((item) => item.id !== id);
     this._todoData.next(filtered);

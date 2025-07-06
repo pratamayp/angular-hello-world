@@ -11,6 +11,6 @@
       <h2 class="table-title">Todo Table</h2>
       <button mat-flat-button (click)="openDialog()">New Data</button>
     </div>
-    <todo-table />
+    <todo-table (edit)="openDialog($event)" />
   </div>
 </section>
