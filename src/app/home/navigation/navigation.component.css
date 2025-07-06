@@ -1,0 +1,7 @@
+.wrapper {
+  margin-top: 1rem;
+}
+
+.wrapper > :not([hidden]) ~ :not([hidden]) {
+  margin-left: 0.5rem;
+}

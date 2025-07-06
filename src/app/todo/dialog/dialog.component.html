@@ -1,13 +1,13 @@
 <h2 mat-dialog-title>Add New Todo</h2>
 <mat-dialog-content>
-  <form [formGroup]="todoForm" class="form-wrapper">
+  <form [formGroup]="todoForm" (ngSubmit)="handleSubmit()" class="form-wrapper">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Title</mat-label>
-      <input matInput placeholder="Input title here" required />
+      <input matInput formControlName="title" placeholder="Input title here" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker" />
+      <input matInput [matDatepicker]="picker" formControlName="deadline" />
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle
         matIconSuffix
@@ -19,5 +19,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-flat-button>Submit</button>
+  <button mat-flat-button (click)="handleSubmit()">Submit</button>
 </mat-dialog-actions>

@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
+import { SharedService } from '../../services/shared.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 export interface PeriodicElement {
   name: string;
@@ -9,46 +12,35 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-];
-
-enum StatusEnum {
-  NOT_YET = 'NOT_YET',
-  ONGOING = 'ONGOING',
-  DONE = 'DONE',
-}
-
 export type Todo = {
-  id: number;
+  id?: number;
   title: string;
-  deadline: string;
+  deadline: Date;
 };
-
-const todoData: Todo[] = [
-  {
-    id: 1,
-    title: 'Feeding the cat',
-    deadline: '05/07/2025',
-  },
-  {
-    id: 2,
-    title: 'Feeding the sheep',
-    deadline: '06/07/2025',
-  },
-];
 
 @Component({
   selector: 'todo-table',
-  imports: [MatTableModule, MatDividerModule],
+  imports: [MatTableModule, MatDividerModule, MatIconModule, MatButtonModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
 })
-export class TableComponent {
-  displayedColumns: string[] = ['id', 'title', 'deadline'];
-  dataSource = todoData;
+export class TableComponent implements OnInit {
+  constructor(private shared: SharedService) {}
+
+  displayedColumns: string[] = ['id', 'title', 'deadline', 'action'];
+  dataSource: Todo[] = [];
+
+  getTodo() {
+    this.shared.todo$.subscribe((data) => {
+      this.dataSource = data;
+    });
+  }
+
+  ngOnInit(): void {
+    this.getTodo();
+  }
+
+  deleteTodo(id: number) {
+    this.shared.deleteTodo(id);
+  }
 }
