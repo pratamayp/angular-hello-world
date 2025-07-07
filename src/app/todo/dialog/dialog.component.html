@@ -1,4 +1,6 @@
-<h2 mat-dialog-title>Add New Todo</h2>
+<h2 mat-dialog-title>
+  {{ todoForm.get("id")?.value ? "Edit Todo" : "Add New Todo" }}
+</h2>
 <mat-dialog-content>
   <form [formGroup]="todoForm" (ngSubmit)="handleSubmit()" class="form-wrapper">
     <mat-form-field appearance="outline" class="form-field">

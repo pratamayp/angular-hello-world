@@ -4,13 +4,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SharedService } from '../../services/shared.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { DateUtilService } from '../../services/utils/date.service';
 
 export type Todo = {
   id: number;
@@ -25,7 +19,10 @@ export type Todo = {
   styleUrl: './table.component.css',
 })
 export class TableComponent implements OnInit {
-  constructor(private shared: SharedService) {}
+  constructor(
+    private shared: SharedService,
+    public dateUtil: DateUtilService
+  ) {}
   @Output() edit = new EventEmitter<Todo>();
 
   displayedColumns: string[] = ['id', 'title', 'deadline', 'action'];

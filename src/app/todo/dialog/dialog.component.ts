@@ -44,7 +44,6 @@ export class TodoDialogComponent {
 
   constructor(
     private shared: SharedService,
-    private datePipe: DatePipe,
     private dialogRef: MatDialogRef<TodoDialogComponent>
   ) {
     if (this.data) {
@@ -54,10 +53,6 @@ export class TodoDialogComponent {
         deadline: this.data.deadline,
       });
     }
-  }
-
-  formatDate(date: Date): string {
-    return this.datePipe.transform(date, 'dd/MM/yyyy') ?? '';
   }
 
   todoForm = new FormGroup({

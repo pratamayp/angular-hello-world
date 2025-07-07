@@ -4,9 +4,9 @@
   </a>
   <div>
     <div class="table-header">
-      <h2 class="table-title">Todo Table</h2>
+      <h2 class="table-title">User Table</h2>
       <button mat-flat-button (click)="openDialog()">New Data</button>
     </div>
-    <todo-table (edit)="openDialog($event)" />
+    <user-table (edit)="openDialog($event)" [data]="users" />
   </div>
 </section>

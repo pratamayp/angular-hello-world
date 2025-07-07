@@ -8,3 +8,43 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.container {
+  padding-left: 15vw;
+  padding-right: 15vw;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.container > * + * {
+  margin-top: 1rem;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.table-title {
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.table-nodata {
+  display: flex;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.form-wrapper {
+  padding: 4px 0;
+}
+
+.form-field {
+  width: 100%;
+}
